@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% if title %}
+        <title> {{ title }} </title>
+        {% else %}
+        <title>Авторизация</title>
+        {% endif %}
+    </head>
+    <body>
+    <div>
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('login') }}">Войти</a>
+        {% else %}
+        <a href="{{ url_for('logout') }}">Выйти</a>
+        {% endif %}
+        {% block content %} {% endblock %}
+    </div>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    </body>
+</html>
